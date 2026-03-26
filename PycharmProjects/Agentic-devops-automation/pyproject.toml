@@ -1,6 +1,0 @@
-[project]
-name = "agentic-devops"
-version = "0.1.0"
-
-[tool.setuptools]
-packages = ["devops_agents", "cli", "executor"]

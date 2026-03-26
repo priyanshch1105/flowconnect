@@ -1,6 +1,0 @@
-package terraform.security
-
-deny contains msg if {
-  input.some_bad_thing
-  msg := "Security policy violation"
-}
