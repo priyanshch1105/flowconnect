@@ -3,3 +3,51 @@
 *.env
 **/*.env
 vdorecord-1f6941074178.json
+*.env
+*.env.*
+**/*.env
+.env
+*.key
+*.pem
+*.crt
+*.p12
+*.jks
+*.keystore
+*.pfx
+*.cer
+*.der
+*.asc
+*.gpg
+*.pgp
+*.p7b
+*.p7c
+*.p8
+*.p10
+*.csr
+*.ovpn
+*.kdbx
+*.sqlite
+*.db
+*.log
+# Node modules and build outputs
+node_modules/
+dist/
+build/
+coverage/
+# OS generated files
+.DS_Store
+Thumbs.db
+# IDE and editor folders
+.vscode/
+.idea/
+*.swp
+*.swo
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+# Misc
+.envrc
+.secret
+secrets.json
