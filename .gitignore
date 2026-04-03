@@ -1,0 +1,5 @@
+
+.env
+*.env
+**/*.env
+vdorecord-1f6941074178.json
