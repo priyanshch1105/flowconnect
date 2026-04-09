@@ -40,7 +40,15 @@ Create a local `.env` file from the example:
 cp .env.example .env
 ```
 
-At minimum, set the auth server variables for local development. Add integration-specific secrets only for the services you want to test.
+At minimum, set the auth server variables for local development. The bundled auth server also stores local workflow and connected-app data so the authenticated builder and profile pages can work without a separate backend.
+
+Local auth data files created from the default `.env.example` setup:
+
+- `flowconnect/auth-backend/users.local.json`
+- `flowconnect/auth-backend/workflows.local.json`
+- `flowconnect/auth-backend/apps.local.json`
+
+Add integration-specific secrets only for the services you want to test.
 
 ### Run the App
 
@@ -55,6 +63,8 @@ Local auth backend:
 ```bash
 npm run auth:server
 ```
+
+With `npm run dev` and `npm run auth:server` running together, you can sign up, log in, save workflows, toggle workflow status, view dashboard stats, and manage connected apps locally.
 
 Production-style local server after building:
 

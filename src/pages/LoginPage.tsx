@@ -100,7 +100,7 @@ export default function LoginPage() {
                             <div className="auth-form__field">
                                 <div className="auth-form__label-row">
                                     <label className="auth-form__label" htmlFor="login-password">Password</label>
-                                    <a href="#" className="auth-form__forgot" id="forgot-password">Forgot?</a>
+                                    <Link to="/forgot-password" className="auth-form__forgot" id="forgot-password">Forgot?</Link>
                                 </div>
                                 <div className="auth-form__input-wrapper">
                                     <Lock size={16} className="auth-form__input-icon" />

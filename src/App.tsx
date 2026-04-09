@@ -6,6 +6,10 @@ import ProfilePage from './pages/ProfilePage'
 import PricingPage from './pages/PricingPage'
 import HowItWorksPage from './pages/HowItWorksPage'
 import BuilderPage from './pages/BuilderPage'
+import ForgotPasswordPage from './pages/ForgotPasswordPage'
+import TermsPage from './pages/TermsPage'
+import PrivacyPage from './pages/PrivacyPage'
+import AboutPage from './pages/AboutPage'
 import './styles/App.css'
 
 function App() {
@@ -28,11 +32,15 @@ function App() {
           element={isAuthenticated ? <ProfilePage /> : <Navigate to="/login" replace />}
         />
         <Route path="/pricing" element={<PricingPage />} />
+        <Route path="/about" element={<AboutPage />} />
         <Route path="/how-it-works" element={<HowItWorksPage />} />
         <Route
           path="/builder"
           element={isAuthenticated ? <BuilderPage /> : <Navigate to="/login" replace />}
         />
+        <Route path="/forgot-password" element={<ForgotPasswordPage />} />
+        <Route path="/terms" element={<TermsPage />} />
+        <Route path="/privacy" element={<PrivacyPage />} />
       </Routes>
     </Router>
   )

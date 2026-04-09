@@ -193,8 +193,8 @@ export default function SignupPage() {
                                     onChange={(e) => setAgreedToTerms(e.target.checked)}
                                 />
                                 <span className="auth-form__checkbox-label">
-                                    I agree to the <a href="#" className="auth-form__link">Terms of Service</a> and{' '}
-                                    <a href="#" className="auth-form__link">Privacy Policy</a>
+                                    I agree to the <Link to="/terms" className="auth-form__link">Terms of Service</Link> and{' '}
+                                    <Link to="/privacy" className="auth-form__link">Privacy Policy</Link>
                                 </span>
                             </label>
 

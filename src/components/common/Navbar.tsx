@@ -5,6 +5,7 @@ import { Link, useLocation } from 'react-router-dom'
 import './Navbar.css'
 
 const navLinks = [
+    { label: 'About', href: '/about', type: 'page' },
     { label: 'Features', href: '/#features', type: 'section' },
     { label: 'How It Works', href: '/how-it-works', type: 'page' },
     { label: 'Integrations', href: '/#integrations', type: 'section' },
