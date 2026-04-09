@@ -43,6 +43,9 @@ dist-ssr/
 build/
 coverage/
 *.local
+flowconnect/auth-backend/users.local.json
+flowconnect/invoice-mcp/invoices/
+!flowconnect/invoice-mcp/invoices/.gitkeep
 
 # --- OS generated files ---
 .DS_Store
