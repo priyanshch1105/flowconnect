@@ -1,0 +1,224 @@
+.about-page {
+    min-height: 100vh;
+    background:
+        radial-gradient(circle at top left, rgba(34, 211, 238, 0.12), transparent 28%),
+        radial-gradient(circle at top right, rgba(79, 70, 229, 0.12), transparent 32%),
+        var(--bg-primary);
+}
+
+.about-hero {
+    padding-top: 140px;
+    padding-bottom: 72px;
+}
+
+.about-hero__inner {
+    max-width: 900px;
+    margin: 0 auto;
+    text-align: center;
+}
+
+.about-hero__badge {
+    margin: 0 auto 20px;
+}
+
+.about-hero__title {
+    font-size: clamp(40px, 6vw, 68px);
+    line-height: 1.03;
+    letter-spacing: -0.04em;
+    color: var(--text-primary);
+}
+
+.about-hero__subtitle {
+    max-width: 760px;
+    margin: 24px auto 0;
+    color: var(--text-secondary);
+    font-size: 18px;
+    line-height: 1.8;
+}
+
+.about-hero__actions {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 14px;
+    margin-top: 32px;
+}
+
+.about-grid {
+    display: grid;
+    gap: 32px;
+}
+
+.about-section__heading {
+    max-width: 760px;
+    margin-bottom: 28px;
+}
+
+.about-section__title {
+    margin-top: 16px;
+}
+
+.about-section__subtitle {
+    max-width: 720px;
+}
+
+.about-cards,
+.about-blog__grid,
+.about-contact__grid {
+    display: grid;
+    gap: 20px;
+}
+
+.about-card,
+.about-post,
+.about-contact__card {
+    padding: 28px;
+}
+
+.about-card__icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 48px;
+    height: 48px;
+    border-radius: 14px;
+    margin-bottom: 18px;
+    background: linear-gradient(135deg, rgba(30, 58, 138, 0.1), rgba(34, 211, 238, 0.16));
+    color: var(--primary-700);
+}
+
+.about-card h3,
+.about-post h3,
+.about-resource h3,
+.about-contact__item h3,
+.about-contact__cta h3 {
+    font-size: 20px;
+    color: var(--text-primary);
+}
+
+.about-card p,
+.about-post p,
+.about-resource p,
+.about-contact__item p,
+.about-contact__cta p {
+    margin-top: 10px;
+    color: var(--text-secondary);
+    line-height: 1.75;
+    font-size: 15px;
+}
+
+.about-post__tag {
+    display: inline-flex;
+    padding: 6px 12px;
+    margin-bottom: 16px;
+    border-radius: 999px;
+    background: var(--cyan-50);
+    color: var(--accent-700);
+    font-size: 12px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+}
+
+.about-post__link {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    margin-top: 18px;
+    color: var(--primary-700);
+    font-weight: 700;
+}
+
+.about-post__link:hover {
+    color: var(--accent-700);
+}
+
+.about-resources__panel {
+    padding: 32px;
+    border: 1px solid var(--border-default);
+    border-radius: var(--radius-xl);
+    background: linear-gradient(135deg, rgba(239, 246, 255, 0.7), rgba(248, 250, 252, 0.96));
+}
+
+.about-resources__list {
+    display: grid;
+    gap: 16px;
+    margin-top: 28px;
+}
+
+.about-resource {
+    padding: 20px 22px;
+    border: 1px solid var(--border-default);
+    border-radius: 18px;
+    background: rgba(255, 255, 255, 0.8);
+}
+
+.about-contact__item {
+    display: flex;
+    gap: 14px;
+    align-items: flex-start;
+}
+
+.about-contact__item + .about-contact__item {
+    margin-top: 18px;
+    padding-top: 18px;
+    border-top: 1px solid var(--border-default);
+}
+
+.about-contact__item svg {
+    margin-top: 3px;
+    color: var(--accent-600);
+}
+
+.about-contact__cta {
+    padding: 30px;
+    border-radius: var(--radius-xl);
+    background: var(--bg-dark);
+    color: white;
+    box-shadow: var(--shadow-xl);
+}
+
+.about-contact__cta h3,
+.about-contact__cta p {
+    color: white;
+}
+
+.about-contact__cta p {
+    opacity: 0.85;
+}
+
+.about-contact__actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    margin-top: 20px;
+}
+
+@media (min-width: 768px) {
+    .about-cards {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+
+    .about-blog__grid {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+
+    .about-contact__grid {
+        grid-template-columns: 1.1fr 0.9fr;
+        align-items: stretch;
+    }
+}
+
+@media (max-width: 767px) {
+    .about-hero {
+        padding-top: 124px;
+    }
+
+    .about-card,
+    .about-post,
+    .about-contact__card,
+    .about-contact__cta,
+    .about-resources__panel {
+        padding: 22px;
+    }
+}
