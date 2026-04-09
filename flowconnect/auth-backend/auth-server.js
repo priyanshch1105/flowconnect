@@ -12,7 +12,10 @@ const __dirname = path.dirname(__filename);
 
 const PORT = Number(process.env.AUTH_PORT || 4000);
 const JWT_SECRET = process.env.JWT_SECRET || "dev-secret-change-me";
-const USERS_FILE = path.join(__dirname, "users.json");
+const USERS_FILE = path.resolve(
+  process.cwd(),
+  process.env.AUTH_USERS_FILE || "flowconnect/auth-backend/users.json"
+);
 
 const app = express();
 app.use(cors());
@@ -29,6 +32,7 @@ async function readUsers() {
 }
 
 async function writeUsers(users) {
+  await fs.mkdir(path.dirname(USERS_FILE), { recursive: true });
   await fs.writeFile(USERS_FILE, JSON.stringify(users, null, 2), "utf8");
 }
 
