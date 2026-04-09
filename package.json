@@ -1,9 +1,20 @@
 {
   "name": "pravah",
   "version": "1.0.0",
-  "description": "Pravah - Workflow Automation Platform",
-  "private": true,
+  "description": "Open-source workflow automation platform with a React frontend and integration services.",
+  "private": false,
+  "license": "MIT",
   "type": "module",
+  "keywords": [
+    "workflow-automation",
+    "react",
+    "vite",
+    "integrations",
+    "open-source"
+  ],
+  "engines": {
+    "node": ">=20"
+  },
   "scripts": {
     "dev": "vite",
     "build": "tsc -b && vite build",
