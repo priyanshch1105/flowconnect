@@ -15,7 +15,7 @@ const PORT = Number(process.env.AUTH_PORT || 4000);
 const JWT_SECRET = process.env.JWT_SECRET || "dev-secret-change-me";
 const USERS_FILE = path.resolve(
   process.cwd(),
-  process.env.AUTH_USERS_FILE || "flowconnect/auth-backend/users.json"
+  process.env.AUTH_USERS_FILE || "flowconnect/auth-backend/users.local.json"
 );
 const WORKFLOWS_FILE = path.resolve(
   process.cwd(),

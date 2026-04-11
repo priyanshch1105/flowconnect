@@ -46,6 +46,7 @@ coverage/
 flowconnect/auth-backend/users.local.json
 flowconnect/auth-backend/workflows.local.json
 flowconnect/auth-backend/apps.local.json
+test.json
 flowconnect/invoice-mcp/invoices/
 !flowconnect/invoice-mcp/invoices/.gitkeep
 
