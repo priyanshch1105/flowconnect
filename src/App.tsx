@@ -14,6 +14,8 @@ import AboutPage from './pages/AboutPage'
 import { onAuthError } from './api/httpClient'
 import './styles/App.css'
 import { Toaster } from 'react-hot-toast'
+import ErrorBoundary from './components/common/ErrorBoundary'
+import { ErrorTestComponent } from './components/common/ErrorBoundaryTest'
 
 // --- Route Protectors ---
 
@@ -47,6 +49,8 @@ function AppContent() {
     <>
       <Toaster position="top-right" reverseOrder={false} />
 
+    <Router>
+      <div id="aria-live-announcer" aria-live="polite" aria-atomic="true" style={{ position: 'absolute', left: '-10000px', width: '1px', height: '1px', overflow: 'hidden' }} />
       <Routes>
         <Route path="/" element={<HomePage />} />
 
@@ -73,7 +77,9 @@ function AppContent() {
           path="/builder"
           element={
             <ProtectedRoute>
-              <BuilderPage />
+              <ErrorBoundary>
+                <BuilderPage />
+              </ErrorBoundary>
             </ProtectedRoute>
           }
         />
@@ -81,7 +87,9 @@ function AppContent() {
           path="/profile"
           element={
             <ProtectedRoute>
-              <ProfilePage />
+              <ErrorBoundary>
+                <ProfilePage />
+              </ErrorBoundary>
             </ProtectedRoute>
           }
         />
@@ -93,6 +101,9 @@ function AppContent() {
         <Route path="/forgot-password" element={<ForgotPasswordPage />} />
         <Route path="/terms" element={<TermsPage />} />
         <Route path="/privacy" element={<PrivacyPage />} />
+
+        {/* Test Route for Error Boundary */}
+        <Route path="/test-error" element={<ErrorBoundary><ErrorTestComponent /></ErrorBoundary>} />
       </Routes>
     </>
   )
