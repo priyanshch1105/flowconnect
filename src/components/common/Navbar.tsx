@@ -97,16 +97,17 @@ export default function Navbar() {
 
                 {/* Desktop CTA */}
                 <div className="navbar__actions">
-                    <button 
-                        onClick={toggleTheme} 
-                        className="navbar__link" 
-                        style={{ padding: '8px', display: 'flex', alignItems: 'center' }}
-                        aria-label="Toggle dark mode"
-                    >
-                        {theme === 'dark' ? <Sun size={20} /> : <Moon size={20} />}
-                    </button>
-                    <Link to="/profile" className="navbar__link" id="nav-profile">Profile</Link>
-                    <Link to="/login" className="navbar__link" id="nav-login">Log In</Link>
+                    <div className="navbar__quick-actions">
+                        <button 
+                            onClick={toggleTheme} 
+                            className="navbar__link navbar__theme-toggle" 
+                            aria-label="Toggle dark mode"
+                        >
+                            {theme === 'dark' ? <Sun size={20} /> : <Moon size={20} />}
+                        </button>
+                        <Link to="/profile" className="navbar__link" id="nav-profile">Profile</Link>
+                        <Link to="/login" className="navbar__link" id="nav-login">Log In</Link>
+                    </div>
                     <Link to="/signup" className="btn-primary navbar__cta" id="nav-get-started">
                         <Zap size={16} />
                         Get Started
