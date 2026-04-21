@@ -197,7 +197,7 @@ Designed for extensibility — add custom integrations inside flowconnect/
 
 📄 License
 
-- **[License](./MITLicense)**
+- **[License](./License)**
 
 💡 Vision
 
