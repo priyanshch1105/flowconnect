@@ -40,11 +40,11 @@ Frontend (React + Vite) ↓ Express Server (Production Hosting) ↓ Local Auth B
 
 ## 📁 Project Structure
 
-├── .github/ # GitHub workflows & configs
-├── flowconnect/ # Integrations & local backends
-├── public/ # Static assets
+├── .github/ 
+├── flowconnect/ 
+├── public/ 
 │
-├── src/ # Frontend application
+├── src/ 
 │ ├── api/
 │ ├── assets/
 │ ├── components/
@@ -56,8 +56,8 @@ Frontend (React + Vite) ↓ Express Server (Production Hosting) ↓ Local Auth B
 │ └── main.tsx
 │
 ├── .gitignore
-├── index.html # App entry (Vite)
-├── index.js # Backend / server entry
+├── index.html 
+├── index.js 
 │
 ├── package.json
 ├── package-lock.json
