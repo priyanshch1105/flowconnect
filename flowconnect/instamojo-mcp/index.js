@@ -391,6 +391,7 @@ server.tool(
 );
 
 // ── Tool 9: Full payment flow (WhatsApp + Email) ──────────────────
+// FIXED: Uses Promise.all to send both notifications in parallel
 server.tool(
   "notify_payment_complete",
   "Send both WhatsApp and Email notification after Instamojo payment",
@@ -402,11 +403,11 @@ server.tool(
     const p = resp.data.payment;
 
     const results = {};
+    const promises = [];
 
-    // Send WhatsApp
+    // Prepare WhatsApp promise
     if (p.buyer_phone) {
-      try {
-        const message = `✅ *Payment Confirmed!*
+      const message = `✅ *Payment Confirmed!*
 
 Hello ${p.buyer}! 👋
 Your payment is confirmed.
@@ -419,36 +420,47 @@ Your payment is confirmed.
 Thank you! 🙏
 _FlowConnect_`;
 
-        const wa = await sendWhatsApp(p.buyer_phone, message);
-        results.whatsapp = { success: true, sent_to: wa.to };
-      } catch (e) {
-        results.whatsapp = { success: false, error: e.message };
-      }
+      const whatsappPromise = sendWhatsApp(p.buyer_phone, message)
+        .then(wa => ({ type: 'whatsapp', success: true, sent_to: wa.to }))
+        .catch(e => ({ type: 'whatsapp', success: false, error: e.message }));
+      
+      promises.push(whatsappPromise);
     }
 
-    // Send Email
+    // Prepare Email promise
     if (p.buyer_email) {
-      try {
-        const subject = `✅ Payment Confirmed — Rs.${p.amount}`;
-        const body = `
-          <div style="font-family:Arial,sans-serif;max-width:600px;margin:auto;padding:20px">
-            <div style="background:#6366f1;padding:20px;border-radius:8px 8px 0 0;text-align:center">
-              <h1 style="color:white;margin:0">FlowConnect</h1>
-            </div>
-            <div style="background:#f9fafb;padding:30px;border-radius:0 0 8px 8px">
-              <h2>Hello ${p.buyer}! 👋</h2>
-              <p>Payment ID: <b>${p.payment_id}</b></p>
-              <p>Amount: <b style="color:#6366f1">Rs.${p.amount}</b></p>
-              <p>Purpose: <b>${p.purpose}</b></p>
-              <p>Status: <b style="color:green">✅ Confirmed</b></p>
-              <p style="color:#9ca3af;font-size:12px">Powered by FlowConnect</p>
-            </div>
-          </div>`;
+      const subject = `✅ Payment Confirmed — Rs.${p.amount}`;
+      const body = `
+        <div style="font-family:Arial,sans-serif;max-width:600px;margin:auto;padding:20px">
+          <div style="background:#6366f1;padding:20px;border-radius:8px 8px 0 0;text-align:center">
+            <h1 style="color:white;margin:0">FlowConnect</h1>
+          </div>
+          <div style="background:#f9fafb;padding:30px;border-radius:0 0 8px 8px">
+            <h2>Hello ${p.buyer}! 👋</h2>
+            <p>Payment ID: <b>${p.payment_id}</b></p>
+            <p>Amount: <b style="color:#6366f1">Rs.${p.amount}</b></p>
+            <p>Purpose: <b>${p.purpose}</b></p>
+            <p>Status: <b style="color:green">✅ Confirmed</b></p>
+            <p style="color:#9ca3af;font-size:12px">Powered by FlowConnect</p>
+          </div>
+        </div>`;
 
-        const msgId = await sendEmail(p.buyer_email, subject, body);
-        results.email = { success: true, sent_to: p.buyer_email, message_id: msgId };
-      } catch (e) {
-        results.email = { success: false, error: e.message };
+      const emailPromise = sendEmail(p.buyer_email, subject, body)
+        .then(msgId => ({ type: 'email', success: true, sent_to: p.buyer_email, message_id: msgId }))
+        .catch(e => ({ type: 'email', success: false, error: e.message }));
+      
+      promises.push(emailPromise);
+    }
+
+    // Execute both promises in parallel
+    const allResults = await Promise.all(promises);
+
+    // Organize results
+    for (const result of allResults) {
+      if (result.type === 'whatsapp') {
+        results.whatsapp = { success: result.success, sent_to: result.sent_to, error: result.error };
+      } else if (result.type === 'email') {
+        results.email = { success: result.success, sent_to: result.sent_to, message_id: result.message_id, error: result.error };
       }
     }
 
