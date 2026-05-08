@@ -23,11 +23,43 @@ import {
   mockCompanyInfo,
   mockTrialBalance,
 } from './mock-data.js';
+import express from 'express';
+import axios from 'axios';
 
 const server = new Server(
   { name: 'tally-mcp', version: '1.0.0' },
   { capabilities: { tools: {} } }
 );
+
+// Twilio WhatsApp configuration
+const TWILIO_ACCOUNT_SID = process.env.TWILIO_ACCOUNT_SID;
+const TWILIO_AUTH_TOKEN = process.env.TWILIO_AUTH_TOKEN;
+const TWILIO_WHATSAPP_FROM = process.env.TWILIO_WHATSAPP_FROM || "whatsapp:+14155238886";
+
+async function sendWhatsApp(phone, message) {
+  if (!TWILIO_ACCOUNT_SID || !TWILIO_AUTH_TOKEN) {
+    console.error("Twilio credentials not configured");
+    return { success: false, error: "Twilio not configured" };
+  }
+
+  let clean = phone.trim().replace(/\s/g, "");
+  if (!clean.startsWith("+")) clean = "+91" + clean;
+  const to = `whatsapp:${clean}`;
+
+  const resp = await axios.post(
+    `https://api.twilio.com/2010-04-01/Accounts/${TWILIO_ACCOUNT_SID}/Messages.json`,
+    new URLSearchParams({
+      From: TWILIO_WHATSAPP_FROM,
+      To: to,
+      Body: message
+    }),
+    {
+      auth: { username: TWILIO_ACCOUNT_SID, password: TWILIO_AUTH_TOKEN },
+      headers: { "Content-Type": "application/x-www-form-urlencoded" },
+    }
+  );
+  return { success: true, sid: resp.data.sid, to };
+}
 
 // ─── Tool Definitions ────────────────────────────────────────────────────────
 
@@ -271,7 +303,62 @@ function errorResult(message) {
   return { content: [{ type: 'text', text: JSON.stringify({ error: message }) }], isError: true };
 }
 
-// ─── Start Server ─────────────────────────────────────────────────────────────
+// ─── Webhook endpoint for Tally form submissions ─────────────────────────────
+
+const app = express();
+app.use(express.json());
+
+// Webhook endpoint for Tally form submissions
+app.post("/webhook/tally", async (req, res) => {
+  try {
+    const payload = req.body;
+    console.log("📝 Received Tally webhook:", JSON.stringify(payload, null, 2));
+
+    const formData = payload.data || payload;
+    const phone = formData.phone || formData.mobile || formData.whatsapp;
+    
+    if (!phone) {
+      console.warn("No phone number found in webhook payload");
+      return res.json({ success: false, error: "No phone number found" });
+    }
+
+    const message = `✅ *Tally Form Submission Received!*
+
+📋 Form: ${formData.form_name || "Tally Form"}
+👤 Name: ${formData.name || formData.customer_name || "Customer"}
+📧 Email: ${formData.email || "Not provided"}
+📞 Phone: ${phone}
+💰 Amount: ${formData.amount || "N/A"}
+
+Thank you for your submission! 🙏
+_FlowConnect_`;
+
+    const result = await sendWhatsApp(phone, message);
+    
+    res.json({ 
+      success: true, 
+      whatsapp: result,
+      received: true 
+    });
+  } catch (error) {
+    console.error("Webhook error:", error.message);
+    res.status(500).json({ success: false, error: error.message });
+  }
+});
+
+// Health check endpoint
+app.get("/webhook/health", (req, res) => {
+  res.json({ status: "ok", service: "tally-mcp" });
+});
+
+// Start webhook server on a separate port
+const WEBHOOK_PORT = process.env.TALLY_WEBHOOK_PORT || 3100;
+app.listen(WEBHOOK_PORT, () => {
+  console.error(`📡 Tally webhook server listening on port ${WEBHOOK_PORT}`);
+  console.error(`   Endpoint: http://localhost:${WEBHOOK_PORT}/webhook/tally`);
+});
+
+// ─── Start MCP Server ────────────────────────────────────────────────────────
 
 const transport = new StdioServerTransport();
 await server.connect(transport);
