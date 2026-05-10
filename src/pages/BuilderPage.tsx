@@ -1324,18 +1324,15 @@ function BuilderInner() {
         dragHandle: ".drag-handle",
       },
     ]);
-  }, []);
+  }, [setNodes, triggers]);
 
-  useEffect(() => {
-    const token = getToken();
-    setIsAuthed(!!token);
-  }, []);
+  // removed redundant auth effect — `isAuthed` is initialized from `getToken()` already
 
   useEffect(() => {
     if (!isAuthed) return;
     if (selectedTrigger?.trigger_key !== "googleforms.submission") return;
     loadGoogleOauthStatus();
-  }, [isAuthed, selectedTrigger?.trigger_key]);
+  }, [isAuthed, selectedTrigger?.trigger_key, loadGoogleOauthStatus]);
 
   function showToast(msg: string, type: "success" | "error") {
     setToast({ msg, type });
@@ -1369,7 +1366,7 @@ function BuilderInner() {
     };
   }
 
-  async function loadGoogleOauthStatus() {
+  const loadGoogleOauthStatus = useCallback(async () => {
     if (!isAuthed) return;
     setGoogleOauthLoading(true);
     try {
@@ -1380,7 +1377,7 @@ function BuilderInner() {
     } finally {
       setGoogleOauthLoading(false);
     }
-  }
+  }, [isAuthed]);
 
   async function startGoogleOauth() {
     if (!isAuthed) {

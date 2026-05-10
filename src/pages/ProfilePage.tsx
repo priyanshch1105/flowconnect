@@ -320,33 +320,34 @@ export default function ProfilePage() {
 
     // ── Init ───────────────────────────────────────────────────────────────────
     useEffect(() => {
-        if (!getToken()) { 
+        if (!getToken()) {
             setTimeout(() => { window.location.href = '/login' }, 500)
-            return 
+            return
         }
-        loadAll()
+
+        const loadAll = async () => {
+            setLoading(true)
+            try {
+                const [u, a, w, d] = await Promise.all([
+                    apiCall('/auth/me'), apiCall('/apps/'),
+                    apiCall('/workflows/'), apiCall('/dashboard/'),
+                ])
+                setUser(u); setName(u.name); setApps(a); setWorkflows(w); setDashboard(d)
+            } catch (e) { console.error(e) }
+            finally { setTimeout(() => setLoading(false), 800) }
+        }
+
+        void loadAll()
     }, [])
 
-    async function loadAll() {
-        setLoading(true)
-        try {
-            const [u, a, w, d] = await Promise.all([
-                apiCall('/auth/me'), apiCall('/apps/'),
-                apiCall('/workflows/'), apiCall('/dashboard/'),
-            ])
-            setUser(u); setName(u.name); setApps(a); setWorkflows(w); setDashboard(d)
-        } catch (e) { console.error(e) }
-        finally { setTimeout(() => setLoading(false), 800) }
-    }
-
     useEffect(() => {
-        if (activeTab === 'payments')      loadPayments()
-        if (activeTab === 'razorpay')      loadRzpToday()
-        if (activeTab === 'subscriptions') loadSubOverview()
-        if (activeTab === 'telegram')      loadTgBotInfo()
-        if (activeTab === 'typeform')      loadTfForms()
-        if (activeTab === 'tally')          loadTallyOverview()
-        if (activeTab === 'zoho')          loadZohoLeads()
+        if (activeTab === 'payments')      setTimeout(() => { void loadPayments() }, 0)
+        if (activeTab === 'razorpay')      setTimeout(() => { void loadRzpToday() }, 0)
+        if (activeTab === 'subscriptions') setTimeout(() => { void loadSubOverview() }, 0)
+        if (activeTab === 'telegram')      setTimeout(() => { void loadTgBotInfo() }, 0)
+        if (activeTab === 'typeform')      setTimeout(() => { void loadTfForms() }, 0)
+        if (activeTab === 'tally')         setTimeout(() => { void loadTallyOverview() }, 0)
+        if (activeTab === 'zoho')          setTimeout(() => { void loadZohoLeads() }, 0)
     }, [activeTab])
 
     // ── NAV items ──────────────────────────────────────────────────────────────

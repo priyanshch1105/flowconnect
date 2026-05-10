@@ -51,9 +51,14 @@ export default function LiveStats() {
   // Initial fetch
   useEffect(() => {
     const controller = new AbortController()
-    fetchStats(controller.signal)
+    const t = setTimeout(() => {
+      void fetchStats(controller.signal)
+    }, 0)
 
-    return () => controller.abort()
+    return () => {
+      clearTimeout(t)
+      controller.abort()
+    }
   }, [fetchStats])
 
   // Live interval (only when visible)

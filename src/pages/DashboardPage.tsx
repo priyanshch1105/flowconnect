@@ -18,21 +18,21 @@ function DashboardPage() {
   const [dateRange, setDateRange] = useState<'7days' | '30days' | 'all'>('30days')
 
   useEffect(() => {
-    fetchDashboardData()
-  }, [dateRange])
-
-  const fetchDashboardData = async () => {
-    try {
-      setLoading(true)
-      const response = await getDashboardAnalytics(dateRange)
-      setData(response.data)
-    } catch (error) {
-      toast.error('Failed to load dashboard')
-      console.error(error)
-    } finally {
-      setLoading(false)
+    const fetchDashboardData = async () => {
+      try {
+        setLoading(true)
+        const response = await getDashboardAnalytics(dateRange)
+        setData(response.data)
+      } catch (error) {
+        toast.error('Failed to load dashboard')
+        console.error(error)
+      } finally {
+        setLoading(false)
+      }
     }
-  }
+
+    void fetchDashboardData()
+  }, [dateRange])
 
   if (loading) {
     return <div className="dashboard-loading">Loading analytics...</div>
