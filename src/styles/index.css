@@ -404,3 +404,516 @@ a {
 .scroll-buttons button:active {
   transform: scale(0.92);
 }
+/* =========================================================
+   AUTH & LEGAL PAGE CONSISTENCY FIX
+   Used by:
+   - SignupPage.tsx
+   - LoginPage.tsx
+   - ForgotPasswordPage.tsx
+   - TermsPage.tsx
+   - PrivacyPage.tsx
+========================================================= */
+
+/* Additional theme tokens */
+:root {
+  --border-subtle: rgba(148, 163, 184, 0.18);
+  --card-max-width-auth: 420px;
+  --card-max-width-legal: 520px;
+}
+
+[data-theme='dark'] {
+  --border-subtle: rgba(148, 163, 184, 0.12);
+}
+
+/* ---------------------------------------------------------
+   Page Layout
+--------------------------------------------------------- */
+.auth-page,
+.legal-page {
+  position: relative;
+  min-height: 100vh;
+  padding: 7rem 1.5rem 3rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+/* Background gradient consistency */
+.auth-page::before,
+.legal-page::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(circle at 12% 8%, rgba(249, 115, 22, 0.08), transparent 38%),
+    radial-gradient(circle at 88% 85%, rgba(99, 102, 241, 0.08), transparent 42%);
+  pointer-events: none;
+  z-index: 0;
+}
+
+[data-theme='dark'] .auth-page::before,
+[data-theme='dark'] .legal-page::before {
+  background:
+    radial-gradient(circle at 12% 8%, rgba(249, 115, 22, 0.10), transparent 38%),
+    radial-gradient(circle at 88% 85%, rgba(99, 102, 241, 0.12), transparent 42%);
+}
+
+/* Ensure content is above background */
+.auth-page > *,
+.legal-page > * {
+  position: relative;
+  z-index: 1;
+}
+
+/* ---------------------------------------------------------
+   Floating Orbs (used in SignupPage)
+--------------------------------------------------------- */
+.auth-page__bg {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.auth-page__orb {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(80px);
+  opacity: 0.45;
+}
+
+.auth-page__orb--1 {
+  width: 320px;
+  height: 320px;
+  top: 6%;
+  left: -80px;
+  background: rgba(249, 115, 22, 0.14);
+}
+
+.auth-page__orb--2 {
+  width: 380px;
+  height: 380px;
+  right: -120px;
+  top: 25%;
+  background: rgba(99, 102, 241, 0.12);
+}
+
+.auth-page__orb--3 {
+  width: 280px;
+  height: 280px;
+  left: 50%;
+  bottom: 4%;
+  transform: translateX(-50%);
+  background: rgba(16, 185, 129, 0.08);
+}
+
+[data-theme='dark'] .auth-page__orb {
+  opacity: 0.55;
+}
+
+/* ---------------------------------------------------------
+   Shared Card Styles
+--------------------------------------------------------- */
+.auth-card,
+.legal-card {
+  width: 100%;
+  border-radius: 28px;
+  border: 1px solid var(--border-default);
+  background: var(--bg-card);
+  box-shadow: var(--shadow-lg);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+}
+
+/* Authentication cards */
+.auth-card {
+  max-width: var(--card-max-width-auth);
+  padding: 2.5rem;
+}
+
+/* Legal cards */
+.legal-card {
+  max-width: var(--card-max-width-legal);
+  padding: 2.5rem;
+}
+
+/* Better definition in light mode */
+[data-theme='light'] .auth-card,
+[data-theme='light'] .legal-card,
+:root .auth-card,
+:root .legal-card {
+  box-shadow:
+    0 20px 50px rgba(15, 23, 42, 0.08),
+    0 2px 8px rgba(15, 23, 42, 0.04);
+}
+
+/* Stronger separation in dark mode */
+[data-theme='dark'] .auth-card,
+[data-theme='dark'] .legal-card {
+  border-color: rgba(148, 163, 184, 0.16);
+  box-shadow:
+    0 30px 80px rgba(0, 0, 0, 0.65),
+    inset 0 1px 0 rgba(255, 255, 255, 0.03);
+}
+
+/* ---------------------------------------------------------
+   Auth Card Structure
+--------------------------------------------------------- */
+.auth-card__logo {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin: 0 auto 1.5rem;
+}
+
+.auth-card__header {
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+.auth-card__title {
+  font-size: clamp(2rem, 4vw, 3rem);
+  font-weight: 800;
+  line-height: 1.15;
+  color: var(--text-primary);
+  margin-bottom: 0.75rem;
+}
+
+.auth-card__subtitle {
+  font-size: 1rem;
+  color: var(--text-secondary);
+  line-height: 1.6;
+}
+
+.auth-card__footer {
+  margin-top: 1.75rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid var(--border-default);
+  text-align: center;
+}
+
+.auth-card__footer-text {
+  color: var(--text-secondary);
+  font-size: 0.95rem;
+}
+
+.auth-card__footer-link,
+.auth-form__link {
+  color: var(--primary-500);
+  font-weight: 600;
+  transition: color var(--transition);
+}
+
+.auth-card__footer-link:hover,
+.auth-form__link:hover {
+  color: var(--primary-600);
+}
+
+/* ---------------------------------------------------------
+   Form Styling
+--------------------------------------------------------- */
+.auth-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+.auth-form__field {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.auth-form__label {
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: var(--text-secondary);
+}
+
+.auth-form__input {
+  width: 100%;
+  min-height: 48px;
+  border: 1px solid var(--border-default);
+  border-radius: 12px;
+  background: var(--bg-secondary);
+  color: var(--text-primary);
+  transition: all var(--transition);
+}
+
+.auth-form__input::placeholder {
+  color: var(--text-muted);
+}
+
+.auth-form__input:focus {
+  outline: none;
+  border-color: var(--primary-400);
+  box-shadow: 0 0 0 4px rgba(249, 115, 22, 0.12);
+}
+
+.auth-form__submit {
+  width: 100%;
+  min-height: 48px;
+  border-radius: 12px;
+  justify-content: center;
+}
+
+/* ---------------------------------------------------------
+   Trust Badges
+--------------------------------------------------------- */
+.auth-page__trust {
+  margin-top: 2rem;
+  display: flex;
+  gap: 1.5rem;
+  flex-wrap: wrap;
+  justify-content: center;
+  color: var(--text-secondary);
+  font-size: 0.875rem;
+}
+
+.auth-page__trust-item {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+
+/* ---------------------------------------------------------
+   Legal Page Sections
+--------------------------------------------------------- */
+.legal-section {
+  margin-top: 2rem;
+}
+
+.legal-section h2,
+.legal-section h3 {
+  margin-bottom: 0.75rem;
+  color: var(--text-primary);
+}
+
+.legal-section p,
+.legal-section li {
+  color: var(--text-secondary);
+  line-height: 1.8;
+}
+
+.legal-section ul {
+  padding-left: 1.5rem;
+}
+
+/* ---------------------------------------------------------
+   Mobile Responsiveness
+--------------------------------------------------------- */
+@media (max-width: 768px) {
+  .auth-page,
+  .legal-page {
+    padding: 6rem 1rem 2rem;
+  }
+
+  .auth-card,
+  .legal-card {
+    padding: 2rem 1.5rem;
+    border-radius: 24px;
+  }
+
+  .auth-card__title {
+    font-size: 2rem;
+  }
+
+  .auth-page__trust {
+    gap: 1rem;
+    font-size: 0.8125rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .auth-card,
+  .legal-card {
+    padding: 1.75rem 1.25rem;
+    border-radius: 20px;
+  }
+
+  .auth-card__title {
+    font-size: 1.75rem;
+  }
+
+  .auth-page__trust {
+    flex-direction: column;
+    align-items: center;
+  }
+}
+/* =========================================================
+   CURSOR GLOW EFFECT
+========================================================= */
+
+.cursor-glow {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 420px;
+  height: 420px;
+  border-radius: 50%;
+  pointer-events: none;
+
+  /* Put glow above section backgrounds */
+  z-index: 10;
+
+  /* Center on cursor */
+  transform: translate(-50%, -50%);
+
+  /* Soft multicolor glow */
+  background:
+    radial-gradient(
+      circle,
+      rgba(249, 115, 22, 0.22) 0%,
+      rgba(249, 115, 22, 0.16) 18%,
+      rgba(99, 102, 241, 0.12) 38%,
+      rgba(16, 185, 129, 0.08) 55%,
+      transparent 78%
+    );
+
+  filter: blur(65px);
+  opacity: 1;
+  will-change: transform;
+}
+
+[data-theme='dark'] .cursor-glow {
+  background:
+    radial-gradient(
+      circle,
+      rgba(249, 115, 22, 0.20) 0%,
+      rgba(249, 115, 22, 0.15) 18%,
+      rgba(99, 102, 241, 0.12) 38%,
+      rgba(16, 185, 129, 0.08) 55%,
+      transparent 78%
+    );
+
+  filter: blur(70px);
+  opacity: 1;
+}
+
+/* Ensure all normal content appears above the glow */
+#root {
+  position: relative;
+  z-index: 20;
+}
+
+/* Hide on smaller screens */
+@media (max-width: 768px) {
+  .cursor-glow {
+    display: none;
+  }
+}
+/* =========================================================
+   LEGAL PAGE WIDTH & LAYOUT FIX
+   Replace your existing `.auth-card--wide` section with this.
+========================================================= */
+
+.auth-card.auth-card--wide {
+  width: min(92vw, 980px) !important;
+  max-width: 980px !important;
+  margin: 0 auto;
+
+  padding: 3rem 4rem !important;
+
+  border-radius: 28px;
+  line-height: 1.75;
+}
+
+/* Very large desktop screens */
+@media (min-width: 1440px) {
+  .auth-card.auth-card--wide {
+    width: min(88vw, 1100px) !important;
+    max-width: 1100px !important;
+    padding: 3.5rem 4.5rem !important;
+  }
+}
+
+/* Standard laptops */
+@media (max-width: 1024px) {
+  .auth-card.auth-card--wide {
+    width: min(94vw, 900px) !important;
+    max-width: 900px !important;
+    padding: 2.75rem 3rem !important;
+  }
+}
+
+/* Tablets */
+@media (max-width: 768px) {
+  .auth-card.auth-card--wide {
+    width: 100% !important;
+    max-width: 100% !important;
+    padding: 2rem 1.5rem !important;
+    border-radius: 24px;
+  }
+}
+
+/* Mobile phones */
+@media (max-width: 480px) {
+  .auth-card.auth-card--wide {
+    padding: 1.75rem 1.25rem !important;
+    border-radius: 20px;
+  }
+}
+
+/* ---------------------------------------------------------
+   LEGAL PAGE CONTENT
+--------------------------------------------------------- */
+
+.auth-legal__content {
+  width: 100%;
+  max-width: 100%;
+  margin-top: 0.5rem;
+}
+
+.auth-legal__subtitle {
+  max-width: 760px;
+  margin: 0 auto 2.5rem;
+  text-align: center;
+  line-height: 1.7;
+}
+
+.auth-legal__content section {
+  margin-bottom: 2.5rem !important;
+}
+
+.auth-legal__content h2 {
+  margin: 0;
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: var(--text-primary);
+}
+
+.auth-legal__content p,
+.auth-legal__content li {
+  color: var(--text-secondary);
+  line-height: 1.8;
+  font-size: 0.98rem;
+}
+
+.auth-legal__content ul {
+  margin: 0;
+  padding-left: 1.5rem;
+}
+
+.auth-legal__content li {
+  margin-bottom: 0.75rem !important;
+}
+
+.auth-legal__content section > div:first-child {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin-bottom: 1rem !important;
+}
+
+.auth-legal__content svg {
+  color: var(--primary-500);
+  flex-shrink: 0;
+}
+
+/* Footer spacing */
+.auth-card.auth-card--wide .auth-card__footer {
+  margin-top: 2.5rem;
+  padding-top: 1.75rem;
+}

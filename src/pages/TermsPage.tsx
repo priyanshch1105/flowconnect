@@ -67,12 +67,12 @@ export default function TermsPage() {
                         <span className="gradient-text">Pravah</span>
                     </span>
                 </Link>
-
+                <center>
                 <div className="auth-legal__eyebrow">
                     <FileText size={14} />
                     Terms of Service
-                </div>
-                <h1 className="auth-card__title auth-legal__title">Terms of Service</h1>
+                </div></center>
+                <h1 className="auth-card__title auth-legal__title"><center>Terms of Service</center></h1>
                 <p className="auth-card__subtitle auth-legal__subtitle">
                     These terms govern your use of Pravah. By using our service, you agree to these terms.
                 </p>

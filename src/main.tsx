@@ -5,12 +5,14 @@ import App from './App'
 import ErrorBoundary from './components/common/ErrorBoundary'
 import { ThemeProvider } from './context/ThemeContext'
 import { AuthProvider } from './context/AuthContext'
+import CursorGlow from './components/common/CursorGlow'
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
     <ThemeProvider>
       <AuthProvider>
         <ErrorBoundary>
+            <CursorGlow />
           <App />
         </ErrorBoundary>
       </AuthProvider>
