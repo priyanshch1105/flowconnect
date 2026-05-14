@@ -68,11 +68,12 @@ export default function PrivacyPage() {
                     </span>
                 </Link>
 
-                <div className="auth-legal__eyebrow">
+               <center> <div className="auth-legal__eyebrow">
                     <Shield size={14} />
                     Privacy Policy
                 </div>
-                <h1 className="auth-card__title auth-legal__title">Privacy Policy</h1>
+                </center>
+                <h1 className="auth-card__title auth-legal__title"><center>Privacy Policy</center></h1>
                 <p className="auth-card__subtitle auth-legal__subtitle">
                     Your privacy is important to us. This policy explains how we collect, use, and protect your data.
                 </p>
