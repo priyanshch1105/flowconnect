@@ -33,6 +33,10 @@ const GOOGLE_TRIGGER_STATE_FILE = path.resolve(
   process.cwd(),
   process.env.AUTH_GOOGLE_TRIGGER_STATE_FILE || "flowconnect/auth-backend/google-trigger-state.local.json"
 );
+const LOGS_FILE = path.resolve(
+  process.cwd(),
+  process.env.AUTH_LOGS_FILE || "flowconnect/auth-backend/execution-logs.local.json"
+);
 const GOOGLE_FORMS_POLL_MS = Number(process.env.GOOGLE_FORMS_POLL_MS || 60_000);
 const GOOGLE_OAUTH_REDIRECT_URI =
   process.env.GOOGLE_FORMS_OAUTH_REDIRECT_URI ||
@@ -89,6 +93,14 @@ async function readGoogleTriggerState() {
 
 async function writeGoogleTriggerState(data) {
   await writeJsonFile(GOOGLE_TRIGGER_STATE_FILE, data);
+}
+
+async function readLogs() {
+  return readJsonFile(LOGS_FILE, []);
+}
+
+async function writeLogs(logs) {
+  await writeJsonFile(LOGS_FILE, logs);
 }
 
 async function readJsonFile(filePath, fallback) {
@@ -397,18 +409,38 @@ async function markWorkflowRun(workflowId, payload, success = true) {
   if (index === -1) return;
 
   const existing = workflows[index];
+  const now = new Date().toISOString();
+  
   const updated = {
     ...existing,
     run_count: (existing.run_count || 0) + 1,
     successful_run_count: (existing.successful_run_count || 0) + (success ? 1 : 0),
     failure_count: (existing.failure_count || 0) + (success ? 0 : 1),
-    last_executed_at: new Date().toISOString(),
+    last_executed_at: now,
     last_trigger_payload: payload,
-    updated_at: new Date().toISOString(),
+    updated_at: now,
   };
 
   workflows[index] = updated;
   await writeWorkflows(workflows);
+
+  //Write to Execution Logs
+  const logs = await readLogs();
+  logs.push({
+    id: randomUUID(),
+    workflow_id: workflowId,
+    workflow_name: existing.name,
+    user_id: existing.user_id,
+    success: success,
+    payload: payload,
+    executed_at: now
+  });
+  
+  // Keep file size manageable by capping at 2000 logs total
+  if (logs.length > 2000) {
+    logs.shift();
+  }
+  await writeLogs(logs);
 }
 
 async function executeGoogleFormsWorkflow(workflow, triggerPayload) {
@@ -928,6 +960,16 @@ app.delete("/api/apps/:appName", authMiddleware, async (req, res) => {
 
   await writeApps(nextApps);
   return res.json({ ok: true });
+});
+
+app.get("/api/run-history", authMiddleware, async (req, res) => {
+  const logs = await readLogs();
+  // Filter logs for the current user and sort newest first
+  const userLogs = logs
+    .filter((log) => log.user_id === req.user.id)
+    .sort((a, b) => new Date(b.executed_at) - new Date(a.executed_at));
+
+  return res.json(userLogs);
 });
 
 app.get("/api/dashboard/", authMiddleware, async (req, res) => {

@@ -12,6 +12,7 @@ import ForgotPasswordPage from './pages/ForgotPasswordPage'
 import TermsPage from './pages/TermsPage'
 import PrivacyPage from './pages/PrivacyPage'
 import AboutPage from './pages/AboutPage'
+import RunHistoryPage from './pages/RunHistoryPage'
 import { onAuthError } from './api/httpClient'
 import './styles/App.css'
 import { Toaster } from 'react-hot-toast'
@@ -101,6 +102,14 @@ function AppContent() {
           element={
             <ProtectedRoute>
               <DashboardPage />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/run-history"
+          element={
+            <ProtectedRoute>
+              <RunHistoryPage />
             </ProtectedRoute>
           }
         />

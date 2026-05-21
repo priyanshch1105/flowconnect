@@ -1328,6 +1328,19 @@ function BuilderInner() {
 
   // removed redundant auth effect — `isAuthed` is initialized from `getToken()` already
 
+  const loadGoogleOauthStatus = useCallback(async () => {
+    if (!isAuthed) return;
+    setGoogleOauthLoading(true);
+    try {
+      const status = await apiCall("/googleforms/oauth/status", { method: "GET" });
+      setGoogleOauthConnected(!!status.connected);
+    } catch {
+      setGoogleOauthConnected(false);
+    } finally {
+      setGoogleOauthLoading(false);
+    }
+  }, [isAuthed]);
+
   useEffect(() => {
     if (!isAuthed) return;
     if (selectedTrigger?.trigger_key !== "googleforms.submission") return;
@@ -1366,19 +1379,7 @@ function BuilderInner() {
     };
   }
 
-  const loadGoogleOauthStatus = useCallback(async () => {
-    if (!isAuthed) return;
-    setGoogleOauthLoading(true);
-    try {
-      const status = await apiCall("/googleforms/oauth/status", { method: "GET" });
-      setGoogleOauthConnected(!!status.connected);
-    } catch {
-      setGoogleOauthConnected(false);
-    } finally {
-      setGoogleOauthLoading(false);
-    }
-  }, [isAuthed]);
-
+  
   async function startGoogleOauth() {
     if (!isAuthed) {
       navigate("/login");
