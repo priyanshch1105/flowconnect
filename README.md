@@ -153,6 +153,7 @@ Command	Description
 
 npm run dev	Start frontend (Vite)
 npm run auth:server	Start local auth backend
+npm run mcp:server	Start MCP tool server for AI agents
 npm run server	Start Express server (nodemon)
 npm run build	Build frontend
 npm run lint	Run ESLint
@@ -178,6 +179,48 @@ Accounting → Tally
 
 Each module is independently extendable.
 
+
+---
+
+## 🤖 MCP Server (AI Agent Tools)
+
+Pravah exposes all integrations as [Model Context Protocol](https://modelcontextprotocol.io) tools, allowing AI agents (Claude Desktop, Cursor, etc.) to trigger Pravah workflows directly.
+
+**Start the server:**
+```bash
+npm run mcp:server
+```
+
+**29 tools across 6 services:**
+
+| Service | Tools |
+|---|---|
+| Slack | `slack_send_message`, `slack_send_payment_alert`, `slack_send_notification`, `slack_send_block` |
+| Discord | `discord_send_message`, `discord_send_payment_alert`, `discord_send_embed`, `discord_send_notification` |
+| Telegram | `telegram_send_message`, `telegram_send_payment_alert`, `telegram_get_bot_info`, `telegram_get_updates` |
+| Razorpay | `razorpay_get_todays_payments`, `razorpay_get_payments_by_range`, `razorpay_get_payment_details`, `razorpay_get_payment_summary` |
+| Airtable | `airtable_add_payment`, `airtable_get_payments`, `airtable_add_record`, `airtable_get_records`, `airtable_update_record`, `airtable_search_records` |
+| Zoho CRM | `zoho_create_lead`, `zoho_create_contact`, `zoho_create_deal`, `zoho_create_task`, `zoho_get_leads`, `zoho_search_leads`, `zoho_update_lead` |
+
+Tools for services without credentials set are automatically skipped at startup.
+
+**Connect to Claude Desktop** (`claude_desktop_config.json`):
+```json
+{
+  "mcpServers": {
+    "pravah": {
+      "command": "node",
+      "args": ["/absolute/path/to/flowconnect/flowconnect/mcp/server.js"],
+      "env": {
+        "SLACK_WEBHOOK_URL": "your_slack_webhook",
+        "RAZORPAY_KEY_ID": "your_key_id"
+      }
+    }
+  }
+}
+```
+
+See `.env.example` for all available environment variables.
 
 ---
 
