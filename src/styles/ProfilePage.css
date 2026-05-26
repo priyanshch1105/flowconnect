@@ -247,6 +247,8 @@
     border: 1px solid var(--border-default);
     border-radius: 12px;
     margin-bottom: 12px;
+    flex-wrap: wrap;
+    gap: 12px;
 }
 
 .app-info {
@@ -318,7 +320,8 @@
 
     .profile-card {
         padding: 20px;
-    }
+   overflow: hidden;
+ }
 
     .profile-section-title {
         font-size: 20px;
