@@ -356,7 +356,7 @@
         padding: 8px 12px;
         font-size: 13px;
         flex-shrink: 0;
-        min-height: unset;
+        min-height: 36px;
     }
 }
 
