@@ -115,3 +115,24 @@
     font-family: var(--font-mono);
     font-weight: 500;
 }
+/* =========================
+   RESPONSIVE
+========================= */
+@media (max-width: 768px) {
+    .activity-viz__timeline {
+        margin-top: 40px;
+        padding: 16px 0;
+    }
+    .activity-viz__run {
+        min-width: 160px;
+        padding: 12px;
+    }
+}
+@media (max-width: 480px) {
+    .activity-viz__timeline {
+        margin-top: 28px;
+    }
+    .activity-viz__run {
+        min-width: 140px;
+    }
+}

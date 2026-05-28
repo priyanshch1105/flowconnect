@@ -34,6 +34,30 @@
     grid-template-columns: repeat(3, 1fr);
   }
 }
+@media (max-width: 768px) {
+  .features__grid {
+    gap: 20px;
+    margin-top: 48px;
+  }
+  .features__card {
+    padding: 24px 20px;
+  }
+}
+@media (max-width: 480px) {
+  .features__grid {
+    gap: 16px;
+    margin-top: 36px;
+  }
+  .features__card {
+    padding: 20px 16px;
+  }
+  .features__card-title {
+    font-size: 17px;
+  }
+  .features__card-desc {
+    font-size: 14px;
+  }
+}
 /* =========================
    CARD
 ========================= */

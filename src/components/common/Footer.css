@@ -153,3 +153,20 @@
   70% { box-shadow: 0 0 0 6px rgba(0,0,0,0); }
   100% { box-shadow: 0 0 0 0 rgba(0,0,0,0); }
 }
+@media (max-width: 480px) {
+  .footer {
+    padding: 60px 0 32px;
+  }
+  .footer__top {
+    gap: 28px;
+  }
+  .footer__bottom {
+    margin-top: 48px;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
+  }
+  .footer__brand {
+    max-width: 100%;
+  }
+}

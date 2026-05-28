@@ -217,3 +217,52 @@
 .integrations__tag {
     transition: all 0.25s ease;
 }
+/* =========================
+   RESPONSIVE
+========================= */
+@media (max-width: 768px) {
+  .integrations__content {
+    margin-top: 48px;
+    gap: 40px;
+  }
+  .integrations__chains {
+    gap: 12px;
+  }
+  .integrations__chain-card {
+    padding: 16px 12px;
+  }
+  .integrations__chain-name {
+    font-size: 13px;
+  }
+  .integrations__tags {
+    gap: 8px;
+  }
+  .integrations__tag {
+    padding: 8px 14px;
+  }
+  .integrations__tag-name {
+    font-size: 13px;
+  }
+}
+@media (max-width: 480px) {
+  .integrations__content {
+    margin-top: 32px;
+    gap: 28px;
+  }
+  .integrations__chain-card {
+    padding: 14px 10px;
+  }
+  .integrations__chain-name {
+    font-size: 12px;
+  }
+  .integrations__chain-avatar {
+    width: 40px;
+    height: 40px;
+  }
+  .integrations__tag {
+    padding: 6px 12px;
+  }
+  .integrations__tag-name {
+    font-size: 12px;
+  }
+}

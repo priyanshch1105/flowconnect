@@ -181,3 +181,45 @@
   pointer-events: none;
   box-shadow: var(--card-inner-glow);
 }
+/* =========================
+   RESPONSIVE
+========================= */
+@media (max-width: 768px) {
+  .learn-automation {
+    padding: 60px 0;
+  }
+  .learn-automation__header {
+    margin-bottom: 40px;
+  }
+  .learn-demo {
+    min-height: unset;
+    border-radius: 16px;
+  }
+  .learn-demo__sidebar,
+  .learn-demo__canvas {
+    padding: 24px 20px;
+  }
+  .learn-demo__sidebar {
+    border-right: none;
+    border-bottom: 1px solid var(--border-default);
+  }
+  .learn-node {
+    width: 100%;
+    max-width: 280px;
+  }
+}
+@media (max-width: 480px) {
+  .learn-automation {
+    padding: 40px 0;
+  }
+  .learn-demo__sidebar,
+  .learn-demo__canvas {
+    padding: 20px 16px;
+  }
+  .learn-demo__title {
+    font-size: 20px;
+  }
+  .learn-node {
+    max-width: 100%;
+  }
+}

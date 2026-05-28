@@ -169,8 +169,23 @@
 
 .testimonials__grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(min(260px, 100%), 1fr));
     gap: 1.8rem;
+}
+@media (max-width: 480px) {
+    .testimonials {
+        padding: 60px 0;
+    }
+    .testimonials__grid {
+        grid-template-columns: 1fr;
+        gap: 16px;
+    }
+    .testimonials__card {
+        padding: 20px 16px;
+    }
+    .testimonials__header {
+        margin-bottom: 36px;
+    }
 }
 
 .testimonials__card {

@@ -109,3 +109,40 @@
   color: var(--text-muted);
   letter-spacing: 0.05em;
 }
+/* =========================
+   RESPONSIVE
+========================= */
+@media (max-width: 768px) {
+  .use-cases {
+    padding: 60px 0;
+  }
+  .use-cases__header {
+    margin-bottom: 40px;
+  }
+  .use-cases__grid {
+    gap: 20px;
+  }
+  .use-cases__card {
+    padding: 22px;
+  }
+}
+@media (max-width: 480px) {
+  .use-cases {
+    padding: 40px 0;
+  }
+  .use-cases__header {
+    margin-bottom: 28px;
+  }
+  .use-cases__grid {
+    gap: 16px;
+  }
+  .use-cases__card {
+    padding: 18px;
+  }
+  .use-cases__title {
+    font-size: 17px;
+  }
+  .use-cases__desc {
+    font-size: 14px;
+  }
+}

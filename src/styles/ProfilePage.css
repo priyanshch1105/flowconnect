@@ -562,13 +562,21 @@
 
 /* Responsive Design */
 @media (max-width: 768px) {
-    .profile-stats {
-        grid-template-columns: 1fr;
+    .profile-page {
+        padding-top: 80px;
+        padding-bottom: 40px;
     }
 
     .profile-container {
         padding: 0 16px;
-        gap: 24px;
+        gap: 20px;
+        max-width: 100%;
+    }
+
+    .profile-stats {
+        grid-template-columns: 1fr;
+        gap: 12px;
+        margin-bottom: 16px;
     }
 
     .profile-card {
@@ -578,5 +586,60 @@
 
     .profile-section-title {
         font-size: 20px;
+        margin-bottom: 16px;
+    }
+<<<<<<< HEAD
+
+    /* Sidebar nav collapses into a horizontal scrollable row */
+    .profile-nav {
+        flex-direction: row;
+        overflow-x: auto;
+        gap: 6px;
+        padding-bottom: 4px;
+        scrollbar-width: none;
+    }
+
+    .profile-nav::-webkit-scrollbar {
+        display: none;
+    }
+
+    .profile-nav-btn {
+        white-space: nowrap;
+        padding: 8px 12px;
+        font-size: 13px;
+        flex-shrink: 0;
+        min-height: 36px;
     }
 }
+
+@media (max-width: 480px) {
+    .profile-page {
+        padding-top: 72px;
+        padding-bottom: 32px;
+    }
+
+    .profile-container {
+        padding: 0 12px;
+        gap: 16px;
+    }
+
+    .profile-section-title {
+        font-size: 18px;
+    }
+
+    .profile-card {
+        padding: 16px;
+        border-radius: 16px;
+    }
+
+    .profile-avatar {
+        width: 80px;
+        height: 80px;
+        font-size: 26px;
+    }
+
+    .profile-name {
+        font-size: 18px;
+    }
+}
+

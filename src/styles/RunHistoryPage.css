@@ -50,7 +50,9 @@
     border-radius: 12px;
     border: 1px solid var(--border-default);
     box-shadow: var(--shadow-sm);
-    overflow: hidden;
+    /* overflow: clip clips visual overflow for border-radius without
+       blocking child scroll containers (unlike overflow: hidden) */
+    overflow: clip;
 }
 
 .runhistory-table-header {
