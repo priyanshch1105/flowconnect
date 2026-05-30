@@ -105,7 +105,9 @@ export default function Navbar() {
                         >
                             {theme === 'dark' ? <Sun size={20} /> : <Moon size={20} />}
                         </button>
-                        <Link to="/profile" className="navbar__link" id="nav-profile">Profile</Link>
+                        <Link to="/profile" className="nav-profile-btn" id="nav-profile">
+                            Profile
+                        </Link>
                         <Link to="/login" className="navbar__link" id="nav-login">Log In</Link>
                     </div>
                     <Link to="/signup" className="btn-primary navbar__cta" id="nav-get-started">
